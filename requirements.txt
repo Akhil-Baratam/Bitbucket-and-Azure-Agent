@@ -1,0 +1,6 @@
+atlassian-python-api
+langchain
+langchain-community
+langchain-core
+langchain-openai
+openai
