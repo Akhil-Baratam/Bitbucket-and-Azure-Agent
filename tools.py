@@ -4,7 +4,7 @@ from bitbucket import bitbucketmethods
  
 
 @tool
-def manage_repo_and_get_file(filepath: str, repo_path):
+def manage_repo_and_get_file(filepath: str, repo_path, workspace, repo_slug):
     """
     Manages the repository and retrieves the file content based on the repository's existence.
 
@@ -16,8 +16,6 @@ def manage_repo_and_get_file(filepath: str, repo_path):
     """
     # Initialize the bitbucketmethods class
     trail = bitbucketmethods()
-    workspace = "sampleforbbagent"
-    repo_slug = "sample_repo_for_bbagent" 
     # Extract workspace and repo_slug from the filepath or define them
     # Assuming the repo_slug is derived from the filepath, adjust as necessary
     access_token = os.getenv("ACCESS_TOKEN")
@@ -45,7 +43,7 @@ def manage_repo_and_get_file(filepath: str, repo_path):
             return None
 
 @tool        
-def commit_changes_and_raise_pr(file_path, changed_content, branch_name, commit_message, repo_path):
+def commit_changes_and_raise_pr(file_path, changed_content, branch_name, commit_message, repo_path, workspace, repo_slug):
     """
         Commits changes to a specified file in a Bitbucket repository and raises a pull request.
 
@@ -63,9 +61,7 @@ def commit_changes_and_raise_pr(file_path, changed_content, branch_name, commit_
                   False otherwise.
     """
     # Create an instance of the bitbucketmethods class
-    bitbucket_instance = bitbucketmethods()
-    workspace = "sampleforbbagent"
-    repo_slug = "sample_repo_for_bbagent"   
+    bitbucket_instance = bitbucketmethods()   
     # Step 2: Create a new branch
     print("creating a new branch")
     branch_created = bitbucket_instance.create_branch(branch_name, repo_path, workspace, repo_slug)
@@ -91,14 +87,14 @@ def commit_changes_and_raise_pr(file_path, changed_content, branch_name, commit_
     return True
 
 if __name__ == "__main__":
-    # manage_repo_and_get_file.invoke(
-    #     input={
-    #         "filepath": "/sample_text.txt",
-    #         "workspace": "sampleforbbagent",
-    #         "repo_slug": "sample_repo_for_bbagent",
-    #         "repo_path": "./sample_repo_for_bbagent"
-    #     }
-    # )
+    manage_repo_and_get_file.invoke(
+        input={
+            "filepath": "/sample_text.txt",
+            "workspace": "sampleforbbagent",
+            "repo_slug": "sample_repo_for_bbagent",
+            "repo_path": "./sample_repo_for_bbagent"
+        }
+    )
     commit_changes_and_raise_pr.invoke(
         input={
             "file_path": "/sample_text.txt",

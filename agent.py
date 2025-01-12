@@ -4,7 +4,9 @@ from tools import manage_repo_and_get_file, commit_changes_and_raise_pr
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.agents import create_tool_calling_agent, AgentExecutor
 from prompts import bitbucket_prompt
-from models import openaimodel
+from models import openaimodel,lmmodel,groqmodel
+
+
 
 class aiAgent:
   def __init__(self, tools, prompts, model):
