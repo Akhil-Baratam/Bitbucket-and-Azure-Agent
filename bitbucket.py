@@ -1,12 +1,3 @@
-"""
-get_repo
-clone_repo
-get_file
-create_newbranch
-raise_pr
-
-"""
-
 import os
 import subprocess
 from dotenv import load_dotenv
@@ -191,7 +182,6 @@ class bitbucketmethods:
           # Commit the changes
           commit_command = ['git', 'commit', '-m', commit_message]
           print("Commiting the changes...")
-          input("Enter to commit change")
           subprocess.run(commit_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)          
           print(f"Changes committed successfully with message: '{commit_message}'")
           return True
@@ -241,7 +231,14 @@ class bitbucketmethods:
               print(f"Pull request created successfully for branch '{branch_name}'.")
           else:
               print(f"Failed to create pull request: {response.text}")
+
+                  # Remove the cloned repository directory
+          if os.path.exists(repo_slug):
+              import shutil
+              shutil.rmtree(repo_slug)  # Remove the directory and all its contents
+              print(f"Removed the cloned repository directory: {repo_slug}")
           self.checkout_main()
+
       
       except subprocess.CalledProcessError as e:
           print(f"Error during push: {e.stderr}")
@@ -254,6 +251,4 @@ trail = bitbucketmethods()
 # trail.get_repo("sampleforbbagent", "sample_repo_for_bbagent", access_token)
 # trail.clone_repo("sampleforbbagent", "sample_repo_for_bbagent", access_token)
 # trail.get_filecontent("./sample_repo_for_bbagent/sample_json_file")
-branch_name = "feature/new-feature"
-repo_path = "./sample_repo_for_bbagent"
 # trail.create_branch(branch_name, repo_path)
