@@ -4,7 +4,7 @@ from bitbucket import bitbucketmethods
  
 
 @tool
-def manage_repo_and_get_file(filepath: str, repo_path, workspace, repo_slug):
+def manage_repo_and_get_file(file_name: str, repo_path, workspace, repo_slug):
     """
     Manages the repository and retrieves the file content based on the repository's existence.
 
@@ -24,7 +24,7 @@ def manage_repo_and_get_file(filepath: str, repo_path, workspace, repo_slug):
     if os.path.exists(repo_slug):
         # If it exists, directly get the file content
         print("Repository already exists. Retrieving file content...")
-        return trail.get_filecontent(filepath, repo_path)
+        return trail.get_filecontent(file_name, repo_path)
     else:
         # If it doesn't exist, perform the sequence of operations
         print("Repository does not exist. Cloning repository...")
@@ -34,7 +34,7 @@ def manage_repo_and_get_file(filepath: str, repo_path, workspace, repo_slug):
             if clone_success:
                 # After cloning, get the file content
                 print("Repository clonning is successful...")
-                return trail.get_filecontent(filepath, repo_path)
+                return trail.get_filecontent(file_name, repo_path)
             else:
                 print("Failed to clone the repository...")
                 return None
@@ -77,12 +77,15 @@ def commit_changes_and_raise_pr(file_path, changed_content, branch_name, commit_
     
     
     # Step 3: Commit the changes
-    commit_success = bitbucket_instance.commit_changes(commit_message)
+    print("os.path.abspath(Repo ....)path before commit changes function", repo_path)
+    print("Repo path before commit changes function", os.path.abspath(repo_path))
+    commit_success = bitbucket_instance.commit_changes(commit_message, repo_slug)
     if not commit_success:
         print("Failed to commit changes.")
         return False
     
     # Step 4: Raise a pull request
+    print("Heading to raise pr")
     bitbucket_instance.raise_pr(branch_name, workspace, repo_slug)
     return True
 

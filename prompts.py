@@ -52,6 +52,7 @@ CRITICAL :
 -> for changed_content generate the code according to the file_type given 
 -> Just make the changes for the required part of the code.
 -> Don't delete the whole code until and unless i mention it.
+include a very big hash code in branch_name so that everytime new branch will be created
 
 THE OUTPUT SHOULD BE IN THE FOLLOWING FORMAT ONLY (CRITICAL): 
 ```GENERATED CODE```
@@ -63,13 +64,7 @@ When given a task, analyze it carefully and break it down into the necessary ste
 
 
 
-  "human": """ Change the file according to my requirement.
-  requirement : 'enable the autoscaling in both mpool and spool then increase the maxpods to 50 '
-  file_type : .yml
-  file_path : /sample.yml
-  repo_path : ./sample_repo_for_bbagent
-  workspace: "sampleforbbagent"
-  repo_slug: "sample_repo_for_bbagent"
+  "human": """ enable the autoscaling in both mpool and spool then increase the maxpods to 80 in sample.yml 
 
   """
 }
