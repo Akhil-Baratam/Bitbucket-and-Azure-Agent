@@ -1,3 +1,4 @@
 .env
 bitbucketAgentenv
 __pycache__/
+sample_repo_for_bbagent
