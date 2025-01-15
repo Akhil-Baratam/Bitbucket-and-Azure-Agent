@@ -321,14 +321,18 @@ class bitbucketmethods:
               except Exception as e:
                   print(f"Warning: Failed to checkout main branch: {e}")
               
+              # Debugging: Print current working directory and directory to be removed
+              print("Current working directory before removing cloned repo:", os.getcwd())
+              print("Attempting to remove repository directory:", repo_slug)
+              
               # Clean up repository directory
-              if os.path.exists(repo_slug):
-                  try:
-                      import shutil
-                      shutil.rmtree(repo_slug)
-                      print(f"Successfully removed repository directory: {repo_slug}")
-                  except Exception as e:
-                      print(f"Warning: Failed to remove repository directory: {e}")
+              try:
+                  import shutil
+                  os.chdir('..')
+                  shutil.rmtree(repo_slug)
+                  print(f"Successfully removed repository directory: {repo_slug}")
+              except Exception as e:
+                  print(f"Warning: Failed to remove repository directory: {e}")
               
           except Exception as cleanup_error:
               print(f"Warning: Error during cleanup: {cleanup_error}")

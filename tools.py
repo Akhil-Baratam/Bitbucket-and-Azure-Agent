@@ -27,7 +27,7 @@ def manage_repo_and_get_file(file_name: str, repo_path, workspace, repo_slug):
         return trail.get_filecontent(file_name, repo_path)
     else:
         # If it doesn't exist, perform the sequence of operations
-        print("Repository does not exist. Cloning repository...")
+        print("Repository Found. Cloning repository...")
         repo_details = trail.get_repo(workspace, repo_slug, access_token)
         if repo_details:
             clone_success = trail.clone_repo(workspace, repo_slug, access_token)
